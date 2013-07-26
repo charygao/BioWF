@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>NETBio</id>
+    <version>1.1.0.0</version>
+    <title>.NET Bio</title>
+    <authors>Various authors</authors>
+    <owners>Various authors</owners>
+    <licenseUrl>http://bio.codeplex.com/license</licenseUrl>
+    <projectUrl>http://bio.codeplex.com/</projectUrl>
+    <iconUrl>http://www.julmar.com/MSR/netbio.jpg</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>.NET Bio is an open source bioinformatics/genomics library for .NET 4.0 that is designed to enable simple loading, saving and analysis of biological data. It includes several common parsers as well as a variety of algorithms for pairwise/multiple alignment and assembly operations.</description>
+    <summary>Bioinformatics analysis toolkit for .NET 4.0</summary>
+    <releaseNotes>Initial release from 1.0 source code.</releaseNotes>
+    <copyright />
+    <language>en-US</language>
+    <tags>bioinformatics biology FASTA FASTQ GenBank nucleotides genomics .NET</tags>
+  </metadata>
+</package>
