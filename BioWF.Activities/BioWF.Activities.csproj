@@ -45,7 +45,7 @@
       <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.Pamsam.dll</HintPath>
     </Reference>
     <Reference Include="Bio.WebServiceHandlers">
-      <HintPath>..\packagesNETBio.1.1.0.0\lib\net40-full\Bio.WebServiceHandlers.dll</HintPath>
+      <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.WebServiceHandlers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />

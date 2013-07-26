@@ -163,7 +163,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="...Activities.Activities.csproj">
+    <ProjectReference Include="..\BioWF.Activities\BioWF.Activities.csproj">
       <Project>{98ec024c-6439-44b1-8b1e-29e457b2201f}</Project>
       <Name>BioWF.Activities</Name>
     </ProjectReference>
