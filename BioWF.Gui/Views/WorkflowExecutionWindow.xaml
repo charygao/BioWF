@@ -10,8 +10,8 @@
                     TickPlacement="BottomRight" TickFrequency="10" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Value, StringFormat=D2}" />
 
             <StatusBarItem HorizontalAlignment="Right" DockPanel.Dock="Right">
-                <Button ToolTip="Save Output" Command="{Binding Save}" Padding="5,2">
-                    <Image Source="/Images/save16x16.png" Width="12" Height="12"></Image>
+                <Button ToolTip="Copy Output to Clipboard" Command="{Binding CopyToClipboard}" Padding="5,2">
+                    <Image Source="/Images/copy16x16.png" Width="12" Height="12"></Image>
                 </Button>
             </StatusBarItem>
 

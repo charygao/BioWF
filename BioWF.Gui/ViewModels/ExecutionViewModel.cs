@@ -3,12 +3,12 @@ using System.Activities;
 using System.Activities.XamlIntegration;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Input;
 using System.Xaml;
 using BioWF.Extensions;
 using JulMar.Windows.Interfaces;
 using JulMar.Windows.Mvvm;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace BioWF.ViewModels
 {
@@ -35,6 +35,11 @@ namespace BioWF.ViewModels
         }
 
         /// <summary>
+        /// Save window to clipboard.
+        /// </summary>
+        public IDelegateCommand CopyToClipbpard { get; private set; }
+
+        /// <summary>
         /// Log used to output results
         /// </summary>
         public IList<string> Log { get; private set; }
@@ -51,7 +56,7 @@ namespace BioWF.ViewModels
         /// <summary>
         /// Cancellation support
         /// </summary>
-        public ICommand Cancel { get; private set; }
+        public IDelegateCommand Cancel { get; private set; }
 
         /// <summary>
         /// Constructor
@@ -62,6 +67,15 @@ namespace BioWF.ViewModels
             _filename = filename;
             Log = new ObservableCollection<string>();
             Cancel = new DelegateCommand(OnCancel, () => IsRunning);
+            CopyToClipbpard = new DelegateCommand(OnCopyToClipboard);
+        }
+
+        /// <summary>
+        /// Save the log to the clipboard.
+        /// </summary>
+        private void OnCopyToClipboard()
+        {
+            Clipboard.SetText(string.Join(Environment.NewLine, Log));
         }
 
         /// <summary>

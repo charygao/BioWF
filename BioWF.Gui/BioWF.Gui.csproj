@@ -49,14 +49,17 @@
     <Reference Include="Bio.WebServiceHandlers">
       <HintPath>..\packages\NETBio.1.1.0.0\lib\net40-full\Bio.WebServiceHandlers.dll</HintPath>
     </Reference>
-    <Reference Include="Julmar.Core">
-      <HintPath>..\packages\MVVMHelpers.2012.4.10.01\lib\4.0\Julmar.Core.dll</HintPath>
+    <Reference Include="Julmar.Core, Version=4.2.1.34097, Culture=neutral, PublicKeyToken=3ea22013129d8c94, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MVVMHelpers.2012.4.20.01\lib\4.5\Julmar.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Julmar.Wpf.Behaviors">
-      <HintPath>..\packages\MVVMHelpers.2012.4.10.01\lib\4.0\Julmar.Wpf.Behaviors.dll</HintPath>
+    <Reference Include="Julmar.Wpf.Behaviors, Version=4.2.1.34098, Culture=neutral, PublicKeyToken=3ea22013129d8c94, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MVVMHelpers.2012.4.20.01\lib\4.5\Julmar.Wpf.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="JulMar.Wpf.Helpers">
-      <HintPath>..\packages\MVVMHelpers.2012.4.10.01\lib\4.0\JulMar.Wpf.Helpers.dll</HintPath>
+    <Reference Include="JulMar.Wpf.Helpers, Version=4.2.1.34098, Culture=neutral, PublicKeyToken=3ea22013129d8c94, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MVVMHelpers.2012.4.20.01\lib\4.5\JulMar.Wpf.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -68,8 +71,8 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Windows.Controls.Ribbon" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MVVMHelpers.2012.4.10.01\lib\4.0\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MVVMHelpers.2012.4.20.01\lib\4.5\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -183,6 +186,9 @@
       <Project>{98ec024c-6439-44b1-8b1e-29e457b2201f}</Project>
       <Name>BioWF.Activities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copy16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

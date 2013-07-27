@@ -53,9 +53,16 @@ namespace BioWF.Activities
                 tw.WriteLine("Writing sequences to " + filename);
             }
 
-            foreach (var s in Sequences.Get(context))
+            try
             {
-                formatter.Write(s);
+                foreach (var s in Sequences.Get(context))
+                {
+                    formatter.Write(s);
+                }
+            }
+            finally
+            {
+                formatter.Close();
             }
         }
     }
