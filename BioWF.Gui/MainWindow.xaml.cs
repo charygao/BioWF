@@ -4,6 +4,7 @@ using System.Activities.Presentation;
 using System.Activities.Presentation.Metadata;
 using System.Activities.Presentation.Toolbox;
 using System.Activities.Presentation.Validation;
+using System.Activities.Presentation.View;
 using System.Activities.Statements;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,7 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Configuration;
 using System.ServiceModel.Activities;
+using BioWF.ExpressionEditor;
 
 namespace BioWF
 {
@@ -197,6 +199,7 @@ namespace BioWF
             }
 
             _designer.Context.Services.Publish<IValidationErrorService>(new ValidationErrorService(ViewModel.Errors));
+            _designer.Context.Services.Publish<IExpressionEditorService>(new EditorService());
         }
 
         /// <summary>
