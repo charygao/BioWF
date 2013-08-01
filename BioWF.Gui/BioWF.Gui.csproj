@@ -101,6 +101,7 @@
       <DependentUpon>IntellisensePopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpressionEditor\TypeImageConverter.cs" />
+    <Compile Include="Extensions\GuiTextReader.cs" />
     <Compile Include="Extensions\OutputWriter.cs" />
     <Compile Include="Extensions\ValidationErrorService.cs" />
     <Compile Include="ViewModels\ArgumentCollectorViewModel.cs" />
@@ -198,6 +199,10 @@
     <ProjectReference Include="..\BioWF.Activities\BioWF.Activities.csproj">
       <Project>{98ec024c-6439-44b1-8b1e-29e457b2201f}</Project>
       <Name>BioWF.Activities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extra.Activities\MiscWF.Activities.csproj">
+      <Project>{5cea0b20-50fd-4967-a123-faa14e5bc2a2}</Project>
+      <Name>MiscWF.Activities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

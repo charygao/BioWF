@@ -90,6 +90,9 @@
     </Compile>
     <Compile Include="Extensions\GenericExtension.cs" />
     <Compile Include="Extensions\NullableExtension.cs" />
+    <Compile Include="IterativeAssemblerDesigner.xaml.cs">
+      <DependentUpon>IterativeAssemblerDesigner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadSequencesFromFileDesigner.xaml.cs">
       <DependentUpon>LoadSequencesFromFileDesigner.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,9 @@
     <Compile Include="SaveSequencesToFileDesigner.xaml.cs">
       <DependentUpon>SaveSequencesToFileDesigner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TransformSequenceDesigner.xaml.cs">
+      <DependentUpon>TransformSequenceDesigner.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -144,6 +150,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="IterativeAssemblerDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoadSequencesFromFileDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SaveSequencesToFileDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransformSequenceDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\pair_align.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\assembly.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\transform_sequence.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

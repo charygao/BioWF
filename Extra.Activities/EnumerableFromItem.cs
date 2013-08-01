@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BioWF.Activities
+namespace MiscWF.Activities
 {
     /// <summary>
     /// Activity to generate a enumerable from an item so it may be passed into other
@@ -10,6 +10,7 @@ namespace BioWF.Activities
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Description("Generates an enumerable from a single item.")]
+    [DesignerCategory("Collection")]
     public sealed class EnumerableFromItem<T> : CodeActivity<IEnumerable<T>>
     {
         /// <summary>

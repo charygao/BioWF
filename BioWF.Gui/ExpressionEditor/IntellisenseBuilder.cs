@@ -170,9 +170,10 @@ namespace BioWF.ExpressionEditor
         /// </summary>
         /// <param name="targetNodes"></param>
         /// <param name="target"></param>
-        private static void AddTypeNode(IntellisenseEntry targetNodes, Type target)
+        /// <param name="allowAbstract"></param>
+        internal static void AddTypeNode(IntellisenseEntry targetNodes, Type target, bool allowAbstract = false)
         {
-            if (!target.IsAbstract && target.IsVisible)
+            if ((!target.IsAbstract || allowAbstract) && target.IsVisible)
             {
                 string namePath = target.Namespace;
                 string name = target.Name;
@@ -268,6 +269,10 @@ namespace BioWF.ExpressionEditor
             foreach (
                 MethodInfo val in target.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance))
             {
+                // Ignore property implementation methods
+                if (val.IsSpecialName)
+                    continue;
+
                 var memberNodes = new IntellisenseEntry
                                   {
                                       Name = val.Name,

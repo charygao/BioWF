@@ -69,15 +69,15 @@
     <Compile Include="AlignSequencePair.cs" />
     <Compile Include="CreateSequence.cs" />
     <Compile Include="DnaTranscribe.cs" />
-    <Compile Include="EnumerableFromItem.cs" />
     <Compile Include="FormatSequenceData.cs" />
-    <Compile Include="GetAtIndex.cs" />
+    <Compile Include="IterativeAssembler.cs" />
     <Compile Include="LoadSequencesFromFile.cs" />
     <Compile Include="NCBIBlast.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProteinTranslate.cs" />
     <Compile Include="RnaReverseTranscribe.cs" />
     <Compile Include="SaveSequencesToFile.cs" />
+    <Compile Include="TransformSequence.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -120,6 +120,16 @@
   <ItemGroup>
     <EmbeddedResource Include="..\BioWF.Activities.Design\Images\pair_align.png">
       <Link>Images\pair_align.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\BioWF.Activities.Design\Images\assembly.png">
+      <Link>Images\assembly.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\BioWF.Activities.Design\Images\transform_sequence.png">
+      <Link>Images\transform_sequence.png</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

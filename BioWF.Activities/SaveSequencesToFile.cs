@@ -49,7 +49,7 @@ namespace BioWF.Activities
 
             if (LogOutput)
             {
-                var tw = context.GetExtension<TextWriter>();
+                var tw = context.GetExtension<TextWriter>() ?? Console.Out;
                 tw.WriteLine("Writing sequences to " + filename);
             }
 

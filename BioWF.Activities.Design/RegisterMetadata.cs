@@ -22,6 +22,8 @@ namespace BioWF.Activities.Design
             ProteinTranslateDesigner.RegisterMetadata(builder);
             NCBIBlastDesigner.RegisterMetadata(builder);
             AlignSequencePairDesigner.RegisterMetadata(builder);
+            IterativeAssemblerDesigner.RegisterMetadata(builder);
+            TransformSequenceDesigner.RegisterMetadata(builder);
             
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }

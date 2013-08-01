@@ -2,7 +2,10 @@
 using System.Activities;
 using System.Activities.XamlIntegration;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Xaml;
 using BioWF.Extensions;
 using JulMar.Windows.Interfaces;
@@ -22,6 +25,7 @@ namespace BioWF.ViewModels
         private Activity _workflow;
         private WorkflowInvoker _invoker;
         private Dictionary<string, object> _inputs;
+        private TextReader _uiTextReader;
 
         /// <summary>
         /// Title for this workflow execution
@@ -37,7 +41,7 @@ namespace BioWF.ViewModels
         /// <summary>
         /// Save window to clipboard.
         /// </summary>
-        public IDelegateCommand CopyToClipbpard { get; private set; }
+        public IDelegateCommand CopyToClipboard { get; private set; }
 
         /// <summary>
         /// Log used to output results
@@ -45,12 +49,27 @@ namespace BioWF.ViewModels
         public IList<string> Log { get; private set; }
 
         /// <summary>
+        /// The log for UI
+        /// </summary>
+        private readonly StringBuilder _logText = new StringBuilder();
+        public string ReadOnlyLogText
+        {
+            get { return _logText.ToString(); }
+        }
+
+        /// <summary>
         /// True if the workflow is currently executing
         /// </summary>
         public bool IsRunning
         {
             get { return _isRunning; }
-            private set { SetPropertyValue(ref _isRunning, value); }
+            private set
+            {
+                if (SetPropertyValue(ref _isRunning, value))
+                {
+                    Cancel.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         /// <summary>
@@ -65,9 +84,30 @@ namespace BioWF.ViewModels
         public ExecutionViewModel(string filename)
         {
             _filename = filename;
-            Log = new ObservableCollection<string>();
             Cancel = new DelegateCommand(OnCancel, () => IsRunning);
-            CopyToClipbpard = new DelegateCommand(OnCopyToClipboard);
+            CopyToClipboard = new DelegateCommand(OnCopyToClipboard);
+
+            var log = new ObservableCollection<string>();
+            log.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    foreach (var item in e.NewItems.Cast<string>())
+                    {
+                        _logText.AppendLine(item);
+                    }
+                }
+                else
+                {
+                    _logText.Clear();
+                    foreach (var item in log)
+                    {
+                        _logText.AppendLine(item);
+                    }
+                }
+                RaisePropertyChanged(() => ReadOnlyLogText);
+            };
+            Log = log;
         }
 
         /// <summary>
@@ -75,7 +115,7 @@ namespace BioWF.ViewModels
         /// </summary>
         private void OnCopyToClipboard()
         {
-            Clipboard.SetText(string.Join(Environment.NewLine, Log));
+            Clipboard.SetText(ReadOnlyLogText);
         }
 
         /// <summary>
@@ -106,7 +146,10 @@ namespace BioWF.ViewModels
         private void OnCancel()
         {
             if (IsRunning)
+            {
+                Log.Add("Canceling execution.");
                 _invoker.CancelAsync(this);
+            }
         }
 
         /// <summary>
@@ -120,6 +163,7 @@ namespace BioWF.ViewModels
             _invoker = new WorkflowInvoker(_workflow);
             _invoker.InvokeCompleted += InvokerOnInvokeCompleted;
             _invoker.Extensions.Add(new OutputWriter(this.Log));
+            _invoker.Extensions.Add((_uiTextReader = new GuiTextReader()));
 
             if (_inputs != null && _inputs.Count > 0)
             {
@@ -140,10 +184,6 @@ namespace BioWF.ViewModels
                 Log.Add(string.Format("Failed to start workflow: {0}", ex.Message));
                 Log.Add(ex.StackTrace);
             }
-            finally
-            {
-                IsRunning = false;
-            }
         }
 
         /// <summary>
@@ -154,6 +194,13 @@ namespace BioWF.ViewModels
         private void InvokerOnInvokeCompleted(object sender, InvokeCompletedEventArgs e)
         {
             IsRunning = false;
+
+            if (_uiTextReader != null)
+            {
+                _uiTextReader.Dispose();
+                _uiTextReader = null;
+            }
+
             if (e.Cancelled)
             {
                 Log.Add("Run was cancelled.");
@@ -178,6 +225,20 @@ namespace BioWF.ViewModels
                     Log.Add(string.Format("  {0} = {1}", item.Key, item.Value));
                 }
             }
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            if (isDisposing)
+            {
+                if (_uiTextReader != null)
+                {
+                    _uiTextReader.Dispose();
+                    _uiTextReader = null;
+                }
+            }
+
+            base.Dispose(isDisposing);
         }
     }
 }

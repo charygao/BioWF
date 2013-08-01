@@ -1,17 +1,15 @@
-﻿using Bio;
-using System.Activities;
-using System.Activities.Presentation;
+﻿using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace BioWF.Activities
+namespace MiscWF.Activities
 {
     /// <summary>
     /// Retrieve a specific sequence item by index
     /// </summary>
-    [DefaultTypeArgument(typeof(ISequence))]
     [Description("Retrieves a specific index for an IEnumerable or IList.")]
+    [DesignerCategory("Collection")]
     public sealed class GetAtIndex<T> : CodeActivity<T>
     {
         /// <summary>

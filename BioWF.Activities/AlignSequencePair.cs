@@ -13,48 +13,82 @@ namespace BioWF.Activities
     /// </summary>
     public sealed class AlignSequencePair : CodeActivity<ISequenceAlignment>
     {
+        #region Constants
         public const string DefaultAligner = "Smith-Waterman";
         public const string DefaultMatrix = "DiagonalScoreMatrix";
         public const int DefaultGapOpenCost = -8;
+        #endregion
 
+        /// <summary>
+        /// First sequence to align.
+        /// </summary>
         [RequiredArgument]
         [Category(ActivityConstants.InputGroup)]
         [Description("First sequence to align.")]
         public InArgument<ISequence> FirstSequence { get; set; }
 
+        /// <summary>
+        /// Second sequence to align.
+        /// </summary>
         [RequiredArgument]
         [Category(ActivityConstants.InputGroup)]
         [Description("Second sequence to align.")]
         public InArgument<ISequence> SecondSequence { get; set; }
 
+        /// <summary>
+        /// The aligner algorithm name to use.
+        /// </summary>
         [RequiredArgument]
         [DefaultValue(DefaultAligner)]
         [Category(ActivityConstants.InputGroup)]
         [Description("Name of the aligner to use.")]
         public string AlignerName { get; set; }
 
+        /// <summary>
+        /// Similarity matrix to use during alignment.
+        /// </summary>
         [DefaultValue(DefaultMatrix)]
         [Category(ActivityConstants.InputGroup)]
         [Description("Similarity Matrix to use for comparison.")]
         public string SimilarityMatrix { get; set; }
 
+        /// <summary>
+        /// Gap open cost to use during alignment.
+        /// </summary>
         [RequiredArgument]
         [DefaultValue(DefaultGapOpenCost)]
         [Category(ActivityConstants.InputGroup)]
         [Description("Gap open cost.")]
         public int GapOpenCost { get; set; }
 
+        /// <summary>
+        /// Gap extension cost to use during alignment.
+        /// </summary>
         [Category(ActivityConstants.InputGroup)]
         [Description("Gap extension cost.")]
         public int GapExtensionCost { get; set; }
 
+        /// <summary>
+        /// Consensus generated from alignment.
+        /// </summary>
         [Category(ActivityConstants.OutputGroup)]
         public OutArgument<ISequence> Consensus { get; set; }
+
+        /// <summary>
+        /// First sequence result from alignment.
+        /// </summary>
         [Category(ActivityConstants.OutputGroup)]
         public OutArgument<ISequence> FirstResult { get; set; }
+
+        /// <summary>
+        /// Second sequence result from alignment.
+        /// </summary>
         [Category(ActivityConstants.OutputGroup)]
         public OutArgument<ISequence> SecondResult { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AlignSequencePair()
         {
             GapOpenCost = DefaultGapOpenCost;

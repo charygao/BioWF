@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using BioWF.ViewModels;
 using JulMar.Windows.UI;
 
@@ -19,6 +21,12 @@ namespace BioWF.Views
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             ((ExecutionViewModel) DataContext).Start();
+        }
+
+        private void OnLogTextChanged(object sender, DataTransferEventArgs e)
+        {
+            TextBox tb = (TextBox) sender;
+            tb.ScrollToEnd();
         }
     }
 }

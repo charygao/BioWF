@@ -144,13 +144,22 @@ namespace BioWF.ExpressionEditor
                             sysType = (Type) sysTypeProp.ComputedValue;
                         }
 
-                        tn.Children.Insert(count++, new IntellisenseEntry
+                        var node = new IntellisenseEntry
                         {
                             Name = varName,
                             Type = IntellisenseEntryType.Primitive,
                             SystemType = sysType,
                             Description = string.Empty
-                        });
+                        };
+
+                        if (sysType != null)
+                        {
+                            var tempNode = new IntellisenseEntry();
+                            IntellisenseBuilder.AddTypeNode(tempNode, sysType, true);
+                            node.Children.AddRange(tempNode.Children[0].Children);
+                        }
+
+                        tn.Children.Insert(count++, node);
                     }
                 }
             }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioWF.Activities.Design", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioWFRunner", "BioWFRunner\BioWFRunner.csproj", "{164A0F44-73A6-44B7-A137-4D8886FD6875}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiscWF.Activities", "Extra.Activities\MiscWF.Activities.csproj", "{5CEA0B20-50FD-4967-A123-FAA14E5BC2A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{164A0F44-73A6-44B7-A137-4D8886FD6875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164A0F44-73A6-44B7-A137-4D8886FD6875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164A0F44-73A6-44B7-A137-4D8886FD6875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CEA0B20-50FD-4967-A123-FAA14E5BC2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CEA0B20-50FD-4967-A123-FAA14E5BC2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CEA0B20-50FD-4967-A123-FAA14E5BC2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CEA0B20-50FD-4967-A123-FAA14E5BC2A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

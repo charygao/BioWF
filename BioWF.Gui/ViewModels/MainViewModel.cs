@@ -81,7 +81,8 @@ namespace BioWF.ViewModels
                 return;
 
             IUIVisualizer uiVisualizer = Resolve<IUIVisualizer>();
-            uiVisualizer.Show("ExecutionWindow", execViewModel, true, null);
+            uiVisualizer.Show("ExecutionWindow", execViewModel, true, 
+                (s,e) => execViewModel.Dispose());
         }
     }
 }

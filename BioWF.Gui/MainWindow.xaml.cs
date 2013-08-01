@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Core.Presentation.Factories;
 using System.Activities.Presentation;
 using System.Activities.Presentation.Metadata;
 using System.Activities.Presentation.Toolbox;
@@ -241,27 +242,32 @@ namespace BioWF
                     Assembly asm = Assembly.Load(asmName);
                     if (asm != null)
                     {
-                        var category = new ToolboxCategory(asm.GetName().Name);
                         foreach (var activity in GetActivityTypes(asm))
                         {
+                            var dca = activity.GetCustomAttributes(typeof (DesignerCategoryAttribute)).FirstOrDefault() as DesignerCategoryAttribute;
+                            string catName = dca != null ? dca.Category : asm.GetName().Name;
+
+                            var category = toolbox.Categories.FirstOrDefault(tbc => tbc.CategoryName == catName);
+                            if (category == null)
+                            {
+                                category = new ToolboxCategory(catName);
+                                toolbox.Categories.Add(category);
+                            }
                             category.Add(new ToolboxItemWrapper(activity, GetFriendlyName(activity)));
                         }
-                        if (category.Tools.Count > 0)
+
+                        // See if we can find any metadata registration.
+                        foreach (var rmType in asm.GetTypes().Where(t => t.Implements(typeof(IRegisterMetadata))))
                         {
-                            // See if we can find any metadata registration.
-                            foreach (var rmType in asm.GetTypes().Where(t => t.Implements(typeof (IRegisterMetadata))))
+                            try
                             {
-                                try
-                                {
-                                    var irm = Activator.CreateInstance(rmType) as IRegisterMetadata;
-                                    if (irm != null)
-                                        irm.Register();
-                                }
-                                catch
-                                {
-                                }
+                                var irm = Activator.CreateInstance(rmType) as IRegisterMetadata;
+                                if (irm != null)
+                                    irm.Register();
                             }
-                            toolbox.Categories.Add(category);
+                            catch
+                            {
+                            }
                         }
                     }
                 }
@@ -274,7 +280,7 @@ namespace BioWF
         private readonly Dictionary<string, Type[]> _standardActivities = new Dictionary<string, Type[]>
         {
             { "Standard", new[] { typeof(Assign), typeof(Delay), typeof(InvokeDelegate), typeof(InvokeMethod), typeof(WriteLine) }},
-            { "Control Flow", new[] { typeof(DoWhile), typeof(ForEach<>), typeof(If), typeof(Parallel), typeof(ParallelForEach<>), typeof(Pick), typeof(PickBranch), typeof(Sequence), typeof(Switch<>), typeof(While) }},
+            { "Control Flow", new[] { typeof(DoWhile), typeof(ForEachWithBodyFactory<>), typeof(If), typeof(Parallel), typeof(ParallelForEachWithBodyFactory<>), typeof(Pick), typeof(PickBranch), typeof(Sequence), typeof(Switch<>), typeof(While) }},
             { "Flowchart", new[] { typeof(Flowchart), typeof(FlowDecision), typeof(FlowSwitch<>) }},
             { "State Machine", new[] { typeof(StateMachine), typeof(State), typeof(FinalState) }},
             { "Messaging", new[] { typeof(CorrelationScope), typeof(InitializeCorrelation), typeof(Receive), typeof(ReceiveAndSendReplyFactory), typeof(Send), typeof(SendAndReceiveReplyFactory), typeof(TransactedReceiveScope) }},
@@ -317,7 +323,10 @@ namespace BioWF
             {
                 result = result.Replace("`1", "<T>").Replace('`', 'T');
             }
-            
+
+            // Remove any factory indication.
+            result = result.Replace("WithBodyFactory", "");
+
             return result;
         }
     }
