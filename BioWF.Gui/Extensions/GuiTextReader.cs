@@ -12,16 +12,20 @@ namespace BioWF.Extensions
         private readonly ManualResetEvent _dataAvailable = new ManualResetEvent(false);
         private Window _window;
         private Thread _uiThread;
+        private volatile bool _readyToRead;
 
         public string Text { get; set; }
 
         public GuiTextReader()
         {
             Text = string.Empty;
+            _readyToRead = true;
         }
 
         private void RunTextEntryWindow()
         {
+            _readyToRead = false;
+
             _window = new Window
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
@@ -56,7 +60,7 @@ namespace BioWF.Extensions
             };
             btn.Click += (s, e) => _window.DialogResult = (Text.Length > 0);
             sp.Children.Add(btn);
-            if (!_window.ShowDialog() == true)
+            if (_window.ShowDialog() == false)
             {
                 Text = string.Empty;
             }
@@ -68,8 +72,9 @@ namespace BioWF.Extensions
 
         public override int Read()
         {
-            if (_window == null)
+            if (_window == null && _readyToRead)
             {
+                _dataAvailable.Reset();
                 _uiThread = new Thread(RunTextEntryWindow);
                 _uiThread.SetApartmentState(ApartmentState.STA);
                 _uiThread.Start();
@@ -83,19 +88,12 @@ namespace BioWF.Extensions
                 return ch;
             }
 
+            _readyToRead = true;
             return -1;
         }
 
         public override int Peek()
         {
-            if (_window == null)
-            {
-                _uiThread = new Thread(RunTextEntryWindow);
-                _uiThread.SetApartmentState(ApartmentState.STA);
-                _uiThread.Start();
-            }
-
-            _dataAvailable.WaitOne();
             return Text.Length > 0 ? Text[0] : -1;
         }
 
